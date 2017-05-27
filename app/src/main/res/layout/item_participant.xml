@@ -1,0 +1,28 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container_photo"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="4dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_photo"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:scaleType="fitCenter"
+        app:riv_corner_radius="30dip"
+        app:riv_mutate_background="true"
+        app:riv_oval="true" />
+
+    <TextView
+        android:id="@+id/tv_initial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="A"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
+
+</FrameLayout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <FrameLayout
+        android:id="@+id/fl_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_photo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@color/rounded_background"
+            app:riv_oval="true" />
+
+        <TextView
+            android:id="@+id/tv_initial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            tools:text="A" />
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/fl_photo"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/fl_photo"
+        android:paddingBottom="4dp"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="16sp"
+        tools:text="Huteri" />
+
+    <TextView
+        android:id="@+id/tv_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_name"
+        android:layout_below="@+id/tv_name"
+        android:textColor="@android:color/tertiary_text_light"
+        android:textSize="12sp"
+        tools:text="Paid: $2.000 Spent: $1000" />
+
+    <TextView
+        android:id="@+id/tv_summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/price_negative"
+        tools:text="+$300.00" />
+
+</RelativeLayout>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <EditText
+                android:id="@+id/et_expense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:fontFamily="sans-serif-light"
+                android:hint="Expense Name"
+                android:selectAllOnFocus="true"
+                android:layout_marginLeft="16dp"
+                android:textColorHint="#c5c7c9"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/iv_clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/et_expense"
+                android:layout_below="@+id/et_expense"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_clock" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_expense"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/iv_clock"
+                android:paddingTop="6dp"
+                android:text="Today, May 5, 2017" />
+
+            <TextView
+                android:id="@+id/tv_currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/et_expense"
+                android:layout_below="@+id/iv_clock"
+                android:layout_marginTop="32dp"
+                android:fontFamily="sans-serif-light"
+                android:text="IDR"
+                android:textColor="@android:color/black"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/tv_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tv_currency"
+                android:layout_marginLeft="16dp"
+                android:layout_toRightOf="@+id/tv_currency"
+                android:background="?attr/selectableItemBackground"
+                android:hint="AMOUNT"
+                android:clickable="true"
+                android:textColorHint="#c5c7c9"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_categories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:clipToPadding="false"
+                android:layout_below="@+id/tv_currency"
+                android:layout_marginTop="32dp" />
+
+
+            <TextView
+                android:id="@+id/tv_payment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rv_categories"
+                android:layout_marginTop="20dp"
+                android:text="Payment"
+                android:layout_alignLeft="@+id/et_expense"
+                android:textColor="@color/text_light"
+                android:textSize="14sp" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_payers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_payment"
+                android:paddingLeft="16dp"
+                android:clipToPadding="false"
+                android:layout_marginTop="16dp" />
+
+
+            <TextView
+                android:id="@+id/tv_split"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rv_payers"
+                android:layout_marginTop="20dp"
+                android:text="Split"
+                android:layout_alignLeft="@+id/et_expense"
+                android:textColor="#48484a"
+                android:textSize="14sp" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_split"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_split"
+                android:paddingLeft="16dp"
+                android:layout_marginBottom="24dp"
+                android:clipToPadding="false"
+                android:layout_marginTop="16dp" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+</LinearLayout>
