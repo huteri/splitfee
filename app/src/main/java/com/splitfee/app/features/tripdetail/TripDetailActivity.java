@@ -1,9 +1,14 @@
 package com.splitfee.app.features.tripdetail;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -57,6 +62,7 @@ public class TripDetailActivity extends BaseActivity implements TripDetailView, 
     private ExpenseAdapter expenseAdapter;
     private boolean isHideToolbarView;
     private LinearLayoutManager layoutManager;
+    private Drawable upArrow;
 
     @Override
     protected void setupApplicationComponent() {
@@ -75,6 +81,7 @@ public class TripDetailActivity extends BaseActivity implements TripDetailView, 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initRvTrips();
+        initNavigationBack();
 
         appBarLayout.addOnOffsetChangedListener(this);
 
@@ -170,9 +177,15 @@ public class TripDetailActivity extends BaseActivity implements TripDetailView, 
             toolbarHeaderView.setVisibility(View.VISIBLE);
             isHideToolbarView = !isHideToolbarView;
 
+            upArrow.setColorFilter(Color.argb(127, 0, 0, 0) ,PorterDuff.Mode.SRC_ATOP);
+            getSupportActionBar().setHomeAsUpIndicator(upArrow);
+
         } else if (percentage < 1f && !isHideToolbarView) {
             toolbarHeaderView.setVisibility(View.GONE);
             isHideToolbarView = !isHideToolbarView;
+
+            upArrow.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+            getSupportActionBar().setHomeAsUpIndicator(upArrow);
         }
     }
 
@@ -186,11 +199,12 @@ public class TripDetailActivity extends BaseActivity implements TripDetailView, 
         presenter.tapSummary();
     }
 
-
     @OnClick(R.id.tv_send_feedback)
     void tapSendFeedback() {
         getNavigator().navigateToSendEmail(this);
     }
+
+
     private void initRvTrips() {
         expenseAdapter = new ExpenseAdapter(this);
         expenseAdapter.setListener(new ExpenseAdapter.ExpenseListener() {
@@ -209,6 +223,11 @@ public class TripDetailActivity extends BaseActivity implements TripDetailView, 
         rvTrips.setLayoutManager(layoutManager);
         rvTrips.setAdapter(expenseAdapter);
         rvTrips.setNestedScrollingEnabled(false);
+
+    }
+
+    private void initNavigationBack() {
+        upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material);
 
     }
 }
