@@ -23,7 +23,7 @@ public class ExpenseViewParam implements Parcelable {
 
     private double amount;
 
-    private Date createdAt;
+    private Date createdAt = new Date();
 
     private List<SplitViewParam> payers, split;
 

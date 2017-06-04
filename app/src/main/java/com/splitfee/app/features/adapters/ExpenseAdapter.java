@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +58,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         holder1.ivIcon.setImageResource(
                 context.getResources().getIdentifier(expenseViewParam.getCategory().getIcon(), "drawable", context.getPackageName()));
 
+        holder1.tvTime.setText(DateUtils.getRelativeTimeSpanString(context, expenseViewParam.getCreatedAt().getTime(), true));
         List<PersonViewParam> persons = new ArrayList<>();
         for (SplitViewParam splitViewParam : expenseViewParam.getPayers()) {
             if (splitViewParam.getAmount().compareTo(BigDecimal.ZERO) > 0)
@@ -114,6 +116,9 @@ public class ExpenseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         @BindView(R.id.iv_menu)
         ImageView ivMenu;
+
+        @BindView(R.id.tv_time)
+        TextView tvTime;
 
         public ItemViewHolder(View view) {
             super(view);

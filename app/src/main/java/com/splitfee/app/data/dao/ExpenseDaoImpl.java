@@ -21,7 +21,7 @@ public class ExpenseDaoImpl implements ExpenseDao {
 
         if (expense1 == null) {
             Trip id = realm.where(Trip.class).equalTo("id", trip.getId()).findFirst();
-            id.getExpenses().add(expense);
+            id.getExpenses().add(0, expense);
         } else {
             realm.insertOrUpdate(expense);
         }
