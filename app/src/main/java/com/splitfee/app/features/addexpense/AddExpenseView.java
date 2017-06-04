@@ -45,4 +45,6 @@ interface AddExpenseView extends BaseView {
     void showCurrency(String s);
 
     void showDate(String format);
+
+    void navigateToSendFeedback();
 }

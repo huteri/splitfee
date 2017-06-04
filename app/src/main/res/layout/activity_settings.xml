@@ -72,7 +72,7 @@
             android:id="@+id/tv_minimum_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Set the least amount of money you can get"
+            android:text="Set the lowest amount of money you can get"
             android:textColor="@android:color/tertiary_text_light"
             android:textSize="14sp" />
 

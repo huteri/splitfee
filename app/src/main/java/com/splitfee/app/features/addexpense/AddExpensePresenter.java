@@ -158,6 +158,10 @@ public class AddExpensePresenter extends BasePresenter<AddExpenseView> {
                 });
     }
 
+    public void tapSendFeedback() {
+        getView().navigateToSendFeedback();
+    }
+
     private void onEditExpenseDone(int position, BigDecimal fullNumber, List<SplitViewParam> splits, List<Integer> lastEdit) {
         splits.get(position).setAmount(fullNumber);
 

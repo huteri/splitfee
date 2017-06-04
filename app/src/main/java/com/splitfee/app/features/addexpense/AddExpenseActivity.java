@@ -108,6 +108,8 @@ public class AddExpenseActivity extends BaseActivity implements AddExpenseView {
             case R.id.add_expense:
                 presenter.tapSaveExpense(etExpense.getText().toString());
                 break;
+            case R.id.send_feedback:
+                presenter.tapSendFeedback();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -221,6 +223,11 @@ public class AddExpenseActivity extends BaseActivity implements AddExpenseView {
     @Override
     public void showDate(String format) {
         tvDate.setText(format);
+    }
+
+    @Override
+    public void navigateToSendFeedback() {
+        getNavigator().navigateToSendEmail(this);
     }
 
     @OnClick(R.id.tv_amount)

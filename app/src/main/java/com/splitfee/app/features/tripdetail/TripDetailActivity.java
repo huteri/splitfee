@@ -186,6 +186,11 @@ public class TripDetailActivity extends BaseActivity implements TripDetailView, 
         presenter.tapSummary();
     }
 
+
+    @OnClick(R.id.tv_send_feedback)
+    void tapSendFeedback() {
+        getNavigator().navigateToSendEmail(this);
+    }
     private void initRvTrips() {
         expenseAdapter = new ExpenseAdapter(this);
         expenseAdapter.setListener(new ExpenseAdapter.ExpenseListener() {
