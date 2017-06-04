@@ -4,6 +4,7 @@ import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -194,9 +195,15 @@ public class MainActivity extends BaseActivity implements MainView, AppBarLayout
 
     @Override
     public void showAboutDialog() {
+        String appVersion = "";
+        try {
+            appVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("About");
-        dialog.setMessage("Designed by Sheila Stefani, built by Huteri Manza\n\n\u00a9 Copyright 2017. All rights reserved.");
+        dialog.setMessage("Version " + appVersion + "\n\nDesigned by Sheila Stefani, built by Huteri Manza\n\n\u00a9 Copyright 2017. All rights reserved.");
         dialog.setPositiveButton(android.R.string.ok, (dialog1, which) -> dialog1.dismiss());
         dialog.show();
 
