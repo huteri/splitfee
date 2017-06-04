@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Test</string>
+    <string name="app_name">SplitFee</string>
     <string name="transition_dialog">addtrip</string>
     <string name="pref_dialog_edit_currency_title">Edit Currency</string>
     <string name="general_save">Save</string>

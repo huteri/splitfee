@@ -34,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="#eee" />
+                    tools:src="#eee" />
             </FrameLayout>
 
             <android.support.v7.widget.Toolbar
