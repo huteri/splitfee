@@ -203,7 +203,7 @@ public class MainActivity extends BaseActivity implements MainView, AppBarLayout
         }
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("About");
-        dialog.setMessage("Version " + appVersion + "\n\nDesigned by Sheila Stefani, built by Huteri Manza\n\n\u00a9 Copyright 2017. All rights reserved.");
+        dialog.setMessage("Version " + appVersion + "\n\n\u00a9 Copyright 2017. All rights reserved.\n\nDesigned by Sheila Stefani, developed by Huteri Manza");
         dialog.setPositiveButton(android.R.string.ok, (dialog1, which) -> dialog1.dismiss());
         dialog.show();
 
