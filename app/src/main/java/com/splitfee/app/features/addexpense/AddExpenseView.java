@@ -43,4 +43,6 @@ interface AddExpenseView extends BaseView {
     void selectCategory(CategoryViewParam category);
 
     void showCurrency(String s);
+
+    void showDate(String format);
 }

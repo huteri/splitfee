@@ -58,6 +58,9 @@ public class AddExpenseActivity extends BaseActivity implements AddExpenseView {
     @BindView(R.id.tv_currency)
     TextView tvCurrency;
 
+    @BindView(R.id.tv_date)
+    TextView tvDate;
+
     @Inject
     AddExpensePresenter presenter;
 
@@ -213,6 +216,11 @@ public class AddExpenseActivity extends BaseActivity implements AddExpenseView {
     @Override
     public void showCurrency(String s) {
         tvCurrency.setText(s);
+    }
+
+    @Override
+    public void showDate(String format) {
+        tvDate.setText(format);
     }
 
     @OnClick(R.id.tv_amount)

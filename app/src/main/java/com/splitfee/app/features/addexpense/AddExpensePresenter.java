@@ -12,8 +12,11 @@ import com.splitfee.app.utils.schedulers.BaseSchedulerProvider;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,6 +39,7 @@ public class AddExpensePresenter extends BasePresenter<AddExpenseView> {
     private List<Integer> payers = new ArrayList<>();
     private List<Integer> splits = new ArrayList<>();
     private String currency;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMMM dd, yyyy");
 
     @Inject
     public AddExpensePresenter(ManageExpense manageExpense, AppConfigDao appConfigDao, BaseSchedulerProvider schedulerProvider) {
@@ -363,6 +367,7 @@ public class AddExpensePresenter extends BasePresenter<AddExpenseView> {
             getView().showExpenseName(expense.getNote());
             getView().showAmount(expense.getAmount());
             getView().selectCategory(expense.getCategory());
+            getView().showDate(dateFormat.format(expense.getCreatedAt()));
             return;
         }
 
@@ -377,6 +382,8 @@ public class AddExpensePresenter extends BasePresenter<AddExpenseView> {
         expense = new ExpenseViewParam();
         expense.setSplit(split);
         expense.setPayers(payers);
+
+        getView().showDate(dateFormat.format(new Date()));
     }
 
     private void doneEditingAmount(BigDecimal amount) {

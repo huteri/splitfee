@@ -7,6 +7,7 @@ import com.splitfee.app.model.Expense;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,6 +22,8 @@ public class ExpenseViewParam implements Parcelable {
     private String note;
 
     private double amount;
+
+    private Date createdAt;
 
     private List<SplitViewParam> payers, split;
 
@@ -40,6 +43,8 @@ public class ExpenseViewParam implements Parcelable {
 
         split = new ArrayList<>();
         in.readTypedList(split, SplitViewParam.CREATOR);
+
+        createdAt = new Date(in.readLong());
     }
 
     @Override
@@ -51,6 +56,8 @@ public class ExpenseViewParam implements Parcelable {
 
         dest.writeTypedList(payers);
         dest.writeTypedList(split);
+
+        dest.writeLong(createdAt.getTime());
     }
 
     public static List<ExpenseViewParam> create(List<Expense> expenses) {
@@ -73,6 +80,7 @@ public class ExpenseViewParam implements Parcelable {
         viewparam.setAmount(BigDecimal.valueOf(expense.getAmount()));
         viewparam.setNote(expense.getNote());
         viewparam.setCategory(CategoryViewParam.create(expense.getCategory()));
+        viewparam.setCreatedAt(expense.getCreatedAt());
         return viewparam;
     }
 
@@ -84,6 +92,7 @@ public class ExpenseViewParam implements Parcelable {
         expense.setPayers(SplitViewParam.toSplits(payers));
         expense.setSplits(SplitViewParam.toSplits(split));
         expense.setCategory(category.toCategory());
+        expense.setCreatedAt(createdAt);
         return expense;
     }
 
@@ -136,6 +145,11 @@ public class ExpenseViewParam implements Parcelable {
         this.category = category;
     }
 
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
     public BigDecimal getTotalPayers() {
 
         BigDecimal total = BigDecimal.ZERO;
@@ -174,4 +188,8 @@ public class ExpenseViewParam implements Parcelable {
             return new ExpenseViewParam[size];
         }
     };
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 }
