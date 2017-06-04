@@ -69,6 +69,14 @@
             android:layout_alignTop="@+id/tv_paid_by"
             android:layout_toRightOf="@+id/tv_paid_by" />
 
+        <ImageView
+            android:id="@+id/iv_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_menu_more" />
+
     </RelativeLayout>
 
 

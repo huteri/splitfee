@@ -32,4 +32,9 @@ public class ManageExpenseImpl implements ManageExpense {
     public Completable saveExpense(TripViewParam trip, ExpenseViewParam expenseViewParam) {
         return expenseDao.saveExpense(trip.toTrip(), expenseViewParam.toExpense());
     }
+
+    @Override
+    public Completable deleteExpense(String id) {
+        return expenseDao.deleteExpense(id);
+    }
 }

@@ -1,6 +1,7 @@
 package com.splitfee.app.features.tripdetail;
 
 import com.splitfee.app.data.usecase.DisplayTrip;
+import com.splitfee.app.data.usecase.ManageExpense;
 import com.splitfee.app.data.usecase.viewparam.ExpenseViewParam;
 import com.splitfee.app.data.usecase.viewparam.TripViewParam;
 import com.splitfee.app.features.BasePresenter;
@@ -12,6 +13,7 @@ import javax.inject.Inject;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 
 /**
  * Created by huteri on 5/4/17.
@@ -21,13 +23,16 @@ public class TripDetailPresenter extends BasePresenter<TripDetailView> {
 
     private final DisplayTrip displayTrip;
     private final BaseSchedulerProvider scheduler;
+    private final ManageExpense manageExpense;
     String tripId;
     private TripViewParam trip;
 
     @Inject
-    public TripDetailPresenter(DisplayTrip displayTrip, BaseSchedulerProvider baseSchedulerProvider) {
+    public TripDetailPresenter(DisplayTrip displayTrip, ManageExpense manageExpense, BaseSchedulerProvider baseSchedulerProvider) {
         this.displayTrip = displayTrip;
         this.scheduler = baseSchedulerProvider;
+        this.manageExpense = manageExpense;
+
     }
 
     public void setTripId(String trip) {
@@ -52,6 +57,25 @@ public class TripDetailPresenter extends BasePresenter<TripDetailView> {
 
     public void tapExpense(ExpenseViewParam expenseViewParam) {
         getView().navigateToAddExpenseActivity(trip, expenseViewParam);
+    }
+
+    public void tapSummary() {
+        getView().navigateToSummary(tripId);
+    }
+
+
+    public void tapExpenseDelete(int pos, ExpenseViewParam expenseViewParam) {
+        manageExpense.deleteExpense(expenseViewParam.getId())
+                .subscribeOn(scheduler.io())
+                .observeOn(scheduler.ui())
+                .subscribe(() -> {
+
+                    if(!isViewAttached())
+                        return;
+
+                    getView().deleteExpense(pos);
+
+                });
     }
 
     private void loadTrip() {
@@ -83,9 +107,5 @@ public class TripDetailPresenter extends BasePresenter<TripDetailView> {
 
                     }
                 });
-    }
-
-    public void tapSummary() {
-        getView().navigateToSummary(tripId);
     }
 }

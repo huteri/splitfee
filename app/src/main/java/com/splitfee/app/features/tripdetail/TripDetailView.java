@@ -23,4 +23,6 @@ interface TripDetailView extends BaseView {
     void navigateToSummary(String tripId);
 
     void showCover(String cover);
+
+    void deleteExpense(int pos);
 }

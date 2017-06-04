@@ -19,7 +19,7 @@ public class ExpenseDaoImpl implements ExpenseDao {
 
         Expense expense1 = realm.where(Expense.class).equalTo("id", expense.getId()).findFirst();
 
-        if(expense1 == null) {
+        if (expense1 == null) {
             Trip id = realm.where(Trip.class).equalTo("id", trip.getId()).findFirst();
             id.getExpenses().add(expense);
         } else {
@@ -30,6 +30,16 @@ public class ExpenseDaoImpl implements ExpenseDao {
 
         realm.close();
 
+        return Completable.complete();
+    }
+
+    @Override
+    public Completable deleteExpense(String id) {
+
+        Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(realm1 -> realm1.where(Expense.class).equalTo("id", id).findAll().deleteFirstFromRealm());
+
+        realm.close();
         return Completable.complete();
     }
 }

@@ -12,4 +12,6 @@ import io.reactivex.Completable;
 public interface ExpenseDao {
 
     Completable saveExpense(Trip trip, Expense expense);
+
+    Completable deleteExpense(String id);
 }

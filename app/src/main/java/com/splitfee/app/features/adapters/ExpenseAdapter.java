@@ -2,7 +2,9 @@ package com.splitfee.app.features.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by huteri on 5/4/17.
@@ -85,6 +88,14 @@ public class ExpenseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         notifyItemInserted(0);
     }
 
+
+    public void deleteExpense(int pos) {
+
+        list.remove(pos);
+
+        notifyItemRemoved(pos);
+    }
+
     public class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private final ParticipantAdapter payersAdapter;
@@ -101,6 +112,9 @@ public class ExpenseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         @BindView(R.id.rv_payers)
         RecyclerView rvPayers;
 
+        @BindView(R.id.iv_menu)
+        ImageView ivMenu;
+
         public ItemViewHolder(View view) {
             super(view);
 
@@ -116,11 +130,30 @@ public class ExpenseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     listener.onExpenseClick(list.get(getAdapterPosition()));
 
             });
+
+        }
+
+        @OnClick(R.id.iv_menu)
+        void tapMenuMore() {
+            PopupMenu menu = new PopupMenu(context, ivMenu, Gravity.RIGHT);
+            menu.inflate(R.menu.item_expense);
+            menu.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()) {
+                    case R.id.menu_delete:
+                        listener.onExpenseDelete(getAdapterPosition(), list.get(getAdapterPosition()));
+                        break;
+                }
+                return true;
+            });
+
+            menu.show();
         }
     }
 
 
     public interface ExpenseListener {
         void onExpenseClick(ExpenseViewParam expenseViewParam);
+
+        void onExpenseDelete(int position, ExpenseViewParam expenseViewParam);
     }
 }

@@ -11,4 +11,5 @@ import io.reactivex.Completable;
 
 public interface ManageExpense {
     Completable saveExpense(TripViewParam trip, ExpenseViewParam expenseViewParam);
+    Completable deleteExpense(String id);
 }

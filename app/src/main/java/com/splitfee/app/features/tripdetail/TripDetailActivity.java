@@ -157,6 +157,11 @@ public class TripDetailActivity extends BaseActivity implements TripDetailView, 
     }
 
     @Override
+    public void deleteExpense(int pos) {
+        expenseAdapter.deleteExpense(pos);
+    }
+
+    @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
         int maxScroll = appBarLayout.getTotalScrollRange();
         float percentage = (float) Math.abs(offset) / (float) maxScroll;
@@ -180,9 +185,20 @@ public class TripDetailActivity extends BaseActivity implements TripDetailView, 
     void tapSummary() {
         presenter.tapSummary();
     }
+
     private void initRvTrips() {
         expenseAdapter = new ExpenseAdapter(this);
-        expenseAdapter.setListener(expenseViewParam -> presenter.tapExpense(expenseViewParam));
+        expenseAdapter.setListener(new ExpenseAdapter.ExpenseListener() {
+            @Override
+            public void onExpenseClick(ExpenseViewParam expenseViewParam) {
+                presenter.tapExpense(expenseViewParam);
+            }
+
+            @Override
+            public void onExpenseDelete(int pos, ExpenseViewParam expenseViewParam) {
+                presenter.tapExpenseDelete(pos, expenseViewParam);
+            }
+        });
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         rvTrips.setLayoutManager(layoutManager);
