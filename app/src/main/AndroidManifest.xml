@@ -42,6 +42,9 @@
 
         <activity android:name=".features.settings.SettingsActivity"
             android:label="Settings" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="0ab64bea47ca3f35dffbd2c94200fbc26be26009" />
     </application>
 
 </manifest>

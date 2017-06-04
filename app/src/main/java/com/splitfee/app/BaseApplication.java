@@ -2,10 +2,12 @@ package com.splitfee.app;
 
 import android.app.Application;
 
+import com.crashlytics.android.Crashlytics;
 import com.splitfee.app.di.components.ApplicationComponent;
 import com.splitfee.app.di.components.DaggerApplicationComponent;
 import com.splitfee.app.di.modules.AppModule;
 
+import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -20,6 +22,9 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        if (!BuildConfig.DEBUG)
+            Fabric.with(this, new Crashlytics());
 
         initInjector();
         initRealm();
