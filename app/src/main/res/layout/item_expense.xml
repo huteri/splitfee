@@ -9,8 +9,7 @@
     android:foreground="?attr/selectableItemBackground"
     android:orientation="vertical"
     app:cardCornerRadius="2dp"
-    app:cardElevation="2dp"
-    app:contentPadding="16dp">
+    app:cardElevation="2dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,12 +19,15 @@
             android:id="@+id/iv_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
             tools:src="@drawable/ic_cat_transport" />
 
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/iv_icon"
             android:layout_marginLeft="16dp"
             android:layout_toRightOf="@+id/iv_icon"
             android:fontFamily="sans-serif-light"
@@ -48,6 +50,8 @@
             android:layout_height="1dp"
             android:layout_below="@+id/iv_icon"
             android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
             android:background="@color/divider" />
 
@@ -55,6 +59,7 @@
             android:id="@+id/tv_paid_by"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/iv_icon"
             android:layout_below="@+id/div"
             android:layout_marginRight="16dp"
             android:fontFamily="sans-serif-light"
@@ -66,6 +71,7 @@
             android:id="@+id/rv_payers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:layout_alignTop="@+id/tv_paid_by"
             android:layout_toLeftOf="@+id/tv_time"
             android:layout_toRightOf="@+id/tv_paid_by" />
@@ -75,10 +81,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textSize="12sp"
+            android:layout_alignTop="@+id/tv_paid_by"
+            android:layout_marginRight="16dp"
             android:fontFamily="sans-serif-medium"
             android:textColor="@android:color/tertiary_text_light"
-            android:layout_alignTop="@+id/tv_paid_by"
+            android:textSize="12sp"
             tools:text="21 minutes ago" />
 
         <ImageView
@@ -87,6 +94,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:background="?attr/selectableItemBackground"
+            android:paddingLeft="16dp"
+            android:paddingTop="16dp"
+            android:paddingRight="16dp"
             android:src="@drawable/ic_menu_more" />
 
     </RelativeLayout>
