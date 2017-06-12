@@ -100,7 +100,7 @@ public class ExpenseSplitAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ButterKnife.bind(this, itemView);
         }
 
-        @OnClick(R.id.tv_amount)
+        @OnClick(R.id.container_item_edit)
         void tapTvAmount() {
             if (listener != null)
                 listener.onClickExpense(getAdapterPosition());

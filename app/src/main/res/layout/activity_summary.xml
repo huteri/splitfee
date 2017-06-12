@@ -16,6 +16,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:tabIndicatorColor="@color/colorAccent"
         app:tabIndicatorHeight="2dp"
+        android:elevation="4dp"
         app:tabPaddingBottom="12dp"
         app:tabPaddingEnd="20dp"
         app:tabPaddingStart="20dp"
