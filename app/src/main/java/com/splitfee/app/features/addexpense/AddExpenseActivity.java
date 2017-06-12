@@ -152,6 +152,9 @@ public class AddExpenseActivity extends BaseActivity implements AddExpenseView {
                 .setReference(reference)
                 .setLabelText(currency);
 
+        if(amount.doubleValue() > 0)
+            npb.setCurrentNumber(amount);
+
         if(max.doubleValue() > 0) {
             npb.setMaxNumber(max);
         }
