@@ -41,7 +41,7 @@ public class SummaryDebtsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ItemViewHolder holder1 = (ItemViewHolder) holder;
 
         SummaryDebtsViewParam debt = data.get(position);
-        holder1.tvInitial.setText(debt.getPayer().getName().substring(0, 1));
+        holder1.tvInitial.setText(debt.getPayer().getName().substring(0, 1).toUpperCase());
         holder1.tvPayer.setText(debt.getPayer().getName());
         holder1.tvReceiver.setText(debt.getReceiver().getName());
         holder1.tvAmpunt.setText(PriceUtil.showPrice(context, debt.getAmount(), false));

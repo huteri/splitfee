@@ -44,7 +44,7 @@ public class SummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ItemViewHolder holder1 = (ItemViewHolder) holder;
 
         SummaryDetailViewParam data = list.get(position);
-        holder1.tvInitial.setText(data.getPerson().getName().substring(0, 1));
+        holder1.tvInitial.setText(data.getPerson().getName().substring(0, 1).toUpperCase());
         holder1.tvName.setText(data.getPerson().getName());
         holder1.tvDetail.setText("Paid: " + PriceUtil.showPrice(context, data.getPaid(), false) + " Spent: " + PriceUtil.showPrice(context, data.getSpent(), false));
         holder1.tvSummary.setText(PriceUtil.showPrice(context, data.getSummary(), false));
