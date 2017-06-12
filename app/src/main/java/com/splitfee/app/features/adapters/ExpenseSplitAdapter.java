@@ -48,7 +48,7 @@ public class ExpenseSplitAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         holder1.tvName.setText(data.get(position).getPerson().getName());
         holder1.tvAmount.setText(PriceUtil.showPrice(context, data.get(position).getAmount(), false));
-        holder1.tvInitial.setText(data.get(position).getPerson().getName().substring(0, 1));
+        holder1.tvInitial.setText(data.get(position).getPerson().getName().substring(0, 1).toUpperCase());
 
         if(data.get(position).getAmount().compareTo(BigDecimal.ZERO) > 0) {
             holder1.ivCheck.setImageResource(R.drawable.ic_check_circle);
