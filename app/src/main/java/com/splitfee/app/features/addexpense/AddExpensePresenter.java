@@ -87,8 +87,6 @@ public class AddExpensePresenter extends BasePresenter<AddExpenseView> {
         if (expense.getAmount() == null || expense.getAmount().doubleValue() == 0) {
             getView().showAmountError();
             return;
-        } else if (expense.getPayers().get(position).getAmount().compareTo(BigDecimal.ZERO) == 0) {
-            return;
         }
 
         getView().showExpenseEditDialog(expense.getPayers().get(position).getAmount(), 1000 + position, expense.getAmount(), currency);
