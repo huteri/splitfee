@@ -32,6 +32,7 @@
         </activity>
 
         <activity android:name=".features.tripdetail.TripDetailActivity"
+            android:theme="@style/AppTheme.Home"
             android:label=""/>
 
         <activity android:name=".features.addexpense.AddExpenseActivity"
