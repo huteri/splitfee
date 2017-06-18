@@ -117,8 +117,9 @@ public class AddExpensePresenter extends BasePresenter<AddExpenseView> {
 
     public void tapCategory(CategoryViewParam categoryViewParam, String s) {
 
+        expense.setCategory(categoryViewParam);
+
         if (s.length() == 0 || Arrays.asList(categoryTitles).contains(s)) {
-            expense.setCategory(categoryViewParam);
             getView().showExpenseName(categoryViewParam.getName());
         }
     }
