@@ -12,7 +12,6 @@ import com.splitfee.app.utils.schedulers.BaseSchedulerProvider;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,21 +74,24 @@ public class AddExpensePresenter extends BasePresenter<AddExpenseView> {
 
     public void tapSplitExpense(int position) {
 
-        if (expense.getAmount() == null || expense.getAmount().doubleValue() == 0) {
-            getView().showAmountError();
-            return;
-        }
+        if (validateTotalExpense()) return;
+
         getView().showExpenseEditDialog(expense.getSplit().get(position).getAmount(), position, expense.getAmount(), currency);
     }
 
     public void tapPayerExpense(int position) {
 
-        if (expense.getAmount() == null || expense.getAmount().doubleValue() == 0) {
-            getView().showAmountError();
-            return;
-        }
+        if (validateTotalExpense()) return;
 
         getView().showExpenseEditDialog(expense.getPayers().get(position).getAmount(), 1000 + position, expense.getAmount(), currency);
+    }
+
+    private boolean validateTotalExpense() {
+        if (expense.getAmount() == null || expense.getAmount().doubleValue() == 0) {
+            getView().showAmountError();
+            return true;
+        }
+        return false;
     }
 
     public void tapEditExpenseName(String s) {
@@ -122,12 +124,16 @@ public class AddExpensePresenter extends BasePresenter<AddExpenseView> {
     }
 
     public void tapPayerContainer(int adapterPosition) {
+        if (validateTotalExpense()) return;
+
         onTapSplitItem(adapterPosition, expense.getPayers(), payers);
 
         getView().showPayers(expense.getPayers());
     }
 
     public void tapSplitContainer(int position) {
+        if (validateTotalExpense()) return;
+
         onTapSplitItem(position, expense.getSplit(), splits);
 
         getView().showSplits(expense.getSplit());
