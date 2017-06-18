@@ -163,6 +163,7 @@ public class MainActivity extends BaseActivity implements MainView, AppBarLayout
 
     @Override
     public void showTitle(String story, String s) {
+        getSupportActionBar().setTitle("");
         toolbarHeaderView.bindTo(story, s);
         floatHeaderView.bindTo(story, s);
     }

@@ -13,8 +13,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".features.main.MainActivity"
-            android:label="">
-            <intent-filter android:label="Splitfee">
+            android:label="Splitfee">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
