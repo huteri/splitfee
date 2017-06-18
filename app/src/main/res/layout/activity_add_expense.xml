@@ -101,7 +101,7 @@
                 android:layout_alignLeft="@+id/et_expense"
                 android:layout_below="@+id/rv_categories"
                 android:layout_marginTop="20dp"
-                android:text="Payment"
+                android:text="Paid by"
                 android:textColor="@color/text_light"
                 android:textSize="14sp" />
 
