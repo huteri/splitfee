@@ -24,8 +24,8 @@ android {
         applicationId "com.splitfee.app"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 4
-        versionName "0.9.3 Beta"
+        versionCode 5
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
