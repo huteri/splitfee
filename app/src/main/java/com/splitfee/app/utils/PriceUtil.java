@@ -17,6 +17,7 @@ import java.text.DecimalFormatSymbols;
 
 public class PriceUtil {
 
+
     public static String showPrice(Context context, BigDecimal value, boolean withoutCurrency) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         String currency = preferences.getString(AppConfigDaoImpl.PREF_CURRENCY, "USD");

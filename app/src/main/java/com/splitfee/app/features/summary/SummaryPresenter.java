@@ -9,9 +9,11 @@ import com.splitfee.app.data.usecase.viewparam.SummaryDetailViewParam;
 import com.splitfee.app.data.usecase.viewparam.TripViewParam;
 import com.splitfee.app.features.BasePresenter;
 import com.splitfee.app.model.Person;
+import com.splitfee.app.utils.PriceUtil;
 import com.splitfee.app.utils.schedulers.BaseSchedulerProvider;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -31,6 +33,9 @@ public class SummaryPresenter extends BasePresenter<SummaryView> {
     private final DisplayTrip displayTrip;
     private final BaseSchedulerProvider scheduler;
     private String tripId;
+    private ArrayList<SummaryDebtsViewParam> summaryDebts;
+    private ArrayList<SummaryDetailViewParam> summaryDetail;
+    private TripViewParam trip;
 
     @Inject
     public SummaryPresenter(DisplayTrip displayTrip, BaseSchedulerProvider schedulerProvider) {
@@ -61,6 +66,7 @@ public class SummaryPresenter extends BasePresenter<SummaryView> {
                         if (!isViewAttached())
                             return;
 
+                        trip = value;
                         loadTripSummary(value);
                     }
 
@@ -73,8 +79,8 @@ public class SummaryPresenter extends BasePresenter<SummaryView> {
 
     private void loadTripSummary(TripViewParam trip) {
 
-        List<SummaryDetailViewParam> summaryDetail = new ArrayList<>();
-        List<SummaryDebtsViewParam> summaryDebts = new ArrayList<>();
+        summaryDetail = new ArrayList<>();
+        summaryDebts = new ArrayList<>();
 
         for (PersonViewParam personViewParam : trip.getPersons()) {
 
@@ -153,6 +159,15 @@ public class SummaryPresenter extends BasePresenter<SummaryView> {
         }
 
         getView().showTripsSummary(summaryDetail, summaryDebts);
+
+    }
+
+    public void tapShareMenu() {
+
+        if(trip == null)
+            return;
+
+        getView().showShareIntent(trip, summaryDebts);
 
     }
 }

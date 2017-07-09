@@ -5,6 +5,7 @@ import com.splitfee.app.data.usecase.viewparam.SummaryDetailViewParam;
 import com.splitfee.app.data.usecase.viewparam.TripViewParam;
 import com.splitfee.app.features.BaseView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,4 +14,6 @@ import java.util.List;
 
 interface SummaryView extends BaseView {
     void showTripsSummary(List<SummaryDetailViewParam> summaryDetail, List<SummaryDebtsViewParam> summaryDebts);
+
+    void showShareIntent(TripViewParam trip, ArrayList<SummaryDebtsViewParam> summaryDebts);
 }

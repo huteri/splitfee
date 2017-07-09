@@ -1,5 +1,6 @@
 package com.splitfee.app.features.summary;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -9,12 +10,16 @@ import android.view.MenuItem;
 
 import com.splitfee.app.BaseApplication;
 import com.splitfee.app.R;
+import com.splitfee.app.data.usecase.viewparam.ExpenseViewParam;
 import com.splitfee.app.data.usecase.viewparam.SummaryDebtsViewParam;
 import com.splitfee.app.data.usecase.viewparam.SummaryDetailViewParam;
 import com.splitfee.app.data.usecase.viewparam.TripViewParam;
 import com.splitfee.app.features.BaseActivity;
 import com.splitfee.app.features.adapters.SummaryPagerAdapter;
+import com.splitfee.app.utils.PriceUtil;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -88,6 +93,9 @@ public class SummaryActivity extends BaseActivity implements SummaryView {
             case android.R.id.home:
                 finish();
                 break;
+            case R.id.share:
+                presenter.tapShareMenu();
+                break;
             case R.id.send_feedback:
                 getNavigator().navigateToSendEmail(this);
                 break;
@@ -98,6 +106,43 @@ public class SummaryActivity extends BaseActivity implements SummaryView {
     @Override
     public void showTripsSummary(List<SummaryDetailViewParam> summaryDetail, List<SummaryDebtsViewParam> summaryDebts) {
         tabAdapter.setData(summaryDetail, summaryDebts);
+    }
+
+    @Override
+    public void showShareIntent(TripViewParam trip, ArrayList<SummaryDebtsViewParam> summaryDebts) {
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(trip.getName() + " on " );
+        builder.append(new SimpleDateFormat("EEE, MMMM dd").format(trip.getCreatedAt())+"\n\n");
+
+        builder.append("Expenses \n");
+        for (ExpenseViewParam expenseViewParam : trip.getExpenses()) {
+            builder.append(expenseViewParam.getNote() + " "+ PriceUtil.showPrice(this, expenseViewParam.getAmount(), false) + "\n");
+        }
+
+        builder.append("\n\n");
+
+        builder.append("Debts\n");
+
+        for (SummaryDebtsViewParam summaryDebt : summaryDebts) {
+            builder.append(summaryDebt.getPayer().getName());
+            builder.append(" owes ");
+            builder.append(summaryDebt.getReceiver().getName());
+            builder.append(" for ");
+            builder.append(PriceUtil.showPrice(this, summaryDebt.getAmount(), false));
+            builder.append("\n");
+        }
+
+        builder.append("\n\n");
+        builder.append("Created with Splitfee");
+
+
+        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+
+        intent.setType("text/plain");
+        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Trip Summary");
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, builder.toString());
+        startActivity(Intent.createChooser(intent, "Share using"));
     }
 
 
