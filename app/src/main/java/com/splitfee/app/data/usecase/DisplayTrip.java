@@ -5,6 +5,7 @@ import com.splitfee.app.data.usecase.viewparam.TripViewParam;
 import com.splitfee.app.model.Person;
 import com.splitfee.app.model.Trip;
 
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Completable;
@@ -19,4 +20,6 @@ public interface DisplayTrip {
     Single<List<TripViewParam>> getTrips();
     Single<TripViewParam> getTrip(String id);
     Single<TripViewParam> saveTrip(String title, List<PersonViewParam> selectedChipList, String cover);
+
+    Single<TripViewParam> updateTrip(String id, Date createdAt, String title, List<PersonViewParam> selectedChipList, String selectedCover);
 }

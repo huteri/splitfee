@@ -2,7 +2,6 @@ package com.splitfee.app.features.main;
 
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -40,6 +39,7 @@ public class MainActivity extends BaseActivity implements MainView, AppBarLayout
     public static String EXTRA_TRIP = "EXTRA_TRIP_ID";
 
     private static final int RC_TAP_FAB = 1;
+    private static final int RC_EDIT_TRIP = 2;
 
     @Inject
     MainPresenter presenter;
@@ -132,8 +132,12 @@ public class MainActivity extends BaseActivity implements MainView, AppBarLayout
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == RC_TAP_FAB && resultCode == RESULT_OK && data.getParcelableExtra(EXTRA_TRIP) != null) {
-            presenter.resultOkFromFab(data.getParcelableExtra(EXTRA_TRIP));
+        if(resultCode == RESULT_OK) {
+            if (requestCode == RC_TAP_FAB && data.getParcelableExtra(EXTRA_TRIP) != null) {
+                presenter.resultOkFromFab(data.getParcelableExtra(EXTRA_TRIP));
+            } else if(requestCode == RC_EDIT_TRIP && data.getParcelableExtra(EXTRA_TRIP) != null) {
+                presenter.resultOKEditTrip(data.getParcelableExtra(EXTRA_TRIP));
+            }
         }
     }
 
@@ -216,8 +220,27 @@ public class MainActivity extends BaseActivity implements MainView, AppBarLayout
     }
 
     @Override
+    public void navigateToEditTrip(TripViewParam tripViewParam) {
+
+        Intent intent = new Intent(this, AddTripActivity.class);
+        intent.putExtra(AddTripActivity.EXTRA_TRIP, tripViewParam);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void refreshTrip(TripViewParam tripViewParam) {
+        tripListAdapter.refreshTrip(tripViewParam);
+    }
+
+    @Override
     public void onTripClick(TripViewParam trip) {
         presenter.tapItem(trip);
+    }
+
+    @Override
+    public void onMenuEdit(TripViewParam tripViewParam) {
+        presenter.tapMenuEdit(tripViewParam);
     }
 
     @OnClick(R.id.fab_book)

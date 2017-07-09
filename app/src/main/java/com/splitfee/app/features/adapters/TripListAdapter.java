@@ -3,7 +3,9 @@ package com.splitfee.app.features.adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.splitfee.app.R;
-import com.splitfee.app.data.usecase.viewparam.PersonViewParam;
 import com.splitfee.app.data.usecase.viewparam.TripViewParam;
 
 import java.text.SimpleDateFormat;
@@ -23,6 +23,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by huteri on 4/11/17.
@@ -78,6 +79,17 @@ public class TripListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         notifyItemInserted(0);
     }
 
+    public void refreshTrip(TripViewParam tripViewParam) {
+
+        for (int i = 0; i < data.size(); i++) {
+            if(data.get(i).getId().contentEquals(tripViewParam.getId())) {
+                data.set(i, tripViewParam);
+                notifyItemChanged(i);
+                break;
+            }
+        }
+    }
+
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final ParticipantAdapter participantAdapter;
@@ -93,6 +105,12 @@ public class TripListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         @BindView(R.id.iv_image)
         ImageView ivImage;
+
+        @BindView(R.id.iv_menu)
+        ImageView ivMenu;
+
+        @BindView(R.id.card_item)
+        ViewGroup cardView;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -113,9 +131,29 @@ public class TripListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 itemClickListener.onTripClick(data.get(getAdapterPosition()));
             }
         }
+
+        @OnClick(R.id.iv_menu)
+        void onMenuMoreClick() {
+            PopupMenu menu = new PopupMenu(context, ivMenu, Gravity.RIGHT);
+            menu.inflate(R.menu.menu_more_trip);
+            menu.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()) {
+                    case R.id.menu_edit:
+
+                        if(itemClickListener != null) {
+                            itemClickListener.onMenuEdit(data.get(getAdapterPosition()));
+                        }
+                        break;
+                }
+                return true;
+            });
+
+            menu.show();
+        }
     }
 
     public interface ItemClickListener {
         void onTripClick(TripViewParam trip);
+        void onMenuEdit(TripViewParam tripViewParam);
     }
 }

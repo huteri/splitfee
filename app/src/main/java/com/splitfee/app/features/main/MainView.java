@@ -1,5 +1,7 @@
 package com.splitfee.app.features.main;
 
+import android.view.ViewGroup;
+
 import com.splitfee.app.data.usecase.viewparam.TripViewParam;
 import com.splitfee.app.features.BaseView;
 
@@ -25,4 +27,8 @@ interface MainView extends BaseView {
     void showAboutDialog();
 
     void navigateToEmail();
+
+    void navigateToEditTrip(TripViewParam tripViewParam);
+
+    void refreshTrip(TripViewParam tripViewParam);
 }

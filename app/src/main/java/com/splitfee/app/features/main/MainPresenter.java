@@ -1,7 +1,8 @@
 package com.splitfee.app.features.main;
 
-import android.util.Log;
+import android.os.Parcelable;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
 import com.splitfee.app.R;
 import com.splitfee.app.data.usecase.DisplayTrip;
@@ -13,7 +14,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 
@@ -90,5 +90,13 @@ class MainPresenter extends BasePresenter<MainView>{
 
     public void tapItem(TripViewParam trip) {
         getView().navigateToTripDetailActivity(trip.getId());
+    }
+
+    public void tapMenuEdit(TripViewParam tripViewParam) {
+        getView().navigateToEditTrip(tripViewParam);
+    }
+
+    public void resultOKEditTrip(TripViewParam tripViewParam) {
+//        getView().refreshTrip(tripViewParam);
     }
 }

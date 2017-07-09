@@ -5,6 +5,7 @@ import com.splitfee.app.data.usecase.viewparam.PersonViewParam;
 import com.splitfee.app.data.usecase.viewparam.TripViewParam;
 import com.splitfee.app.model.Trip;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,6 +52,18 @@ public class DisplayTripImpl implements DisplayTrip {
         trip.setName(title);
         trip.setPersons(PersonViewParam.toPersons(selectedChipList));
         trip.setCover("https://source.unsplash.com/featured/"+trip.getId()+"/?" + cover);
+
+        return tripDao.saveTrip(trip).map(TripViewParam::create);
+    }
+
+    @Override
+    public Single<TripViewParam> updateTrip(String id, Date createdAt, String title, List<PersonViewParam> selectedChipList, String selectedCover) {
+        Trip trip = new Trip();
+        trip.setId(id);
+        trip.setName(title);
+        trip.setCreatedAt(createdAt);
+        trip.setPersons(PersonViewParam.toPersons(selectedChipList));
+        trip.setCover("https://source.unsplash.com/featured/"+trip.getId()+"/?" + selectedCover);
 
         return tripDao.saveTrip(trip).map(TripViewParam::create);
     }

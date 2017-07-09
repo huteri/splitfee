@@ -141,7 +141,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         @OnClick(R.id.iv_menu)
         void tapMenuMore() {
             PopupMenu menu = new PopupMenu(context, ivMenu, Gravity.RIGHT);
-            menu.inflate(R.menu.item_expense);
+            menu.inflate(R.menu.menu_more_expense);
             menu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case R.id.menu_delete:

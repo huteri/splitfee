@@ -28,6 +28,7 @@ import com.splitfee.app.features.components.MorphFabToDialog;
 import com.splitfee.app.features.main.MainActivity;
 import com.splitfee.app.model.Person;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -41,6 +42,7 @@ import butterknife.OnClick;
 
 public class AddTripActivity extends BaseActivity implements AddTripView {
 
+    public static final String EXTRA_TRIP = "EXTRA_TRIP";
     @BindView(R.id.container)
     ViewGroup container;
 
@@ -78,6 +80,7 @@ public class AddTripActivity extends BaseActivity implements AddTripView {
         initSpCover();
         initChips();
 
+        presenter.setTrip(getIntent().getParcelableExtra(EXTRA_TRIP));
         presenter.onCreateView(this);
     }
 
@@ -127,6 +130,25 @@ public class AddTripActivity extends BaseActivity implements AddTripView {
     @Override
     public void showTitleRequired() {
         Toast.makeText(this, "Title is required", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setTitle(String name) {
+        etTitle.setText(name);
+    }
+
+    @Override
+    public void setCover(String cover) {
+        String[] covers = getResources().getStringArray(R.array.cover_type);
+        spCover.setSelection(Arrays.asList(covers).indexOf(cover.substring(cover.lastIndexOf("?") + 1)));
+
+    }
+
+    @Override
+    public void setPersons(List<PersonViewParam> persons) {
+        for (PersonViewParam person : persons) {
+            chipsInput.addChip(person);
+        }
     }
 
     @OnClick(R.id.btn_save)
@@ -203,7 +225,8 @@ public class AddTripActivity extends BaseActivity implements AddTripView {
         spCover.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                presenter.selectCover(getResources().getStringArray(R.array.cover_type)[position]);
+                String[] covers = getResources().getStringArray(R.array.cover_type);
+                presenter.selectCover(covers[position]);
             }
 
             @Override

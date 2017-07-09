@@ -5,7 +5,6 @@ import com.splitfee.app.data.usecase.DisplayTrip;
 import com.splitfee.app.data.usecase.viewparam.PersonViewParam;
 import com.splitfee.app.data.usecase.viewparam.TripViewParam;
 import com.splitfee.app.features.BasePresenter;
-import com.splitfee.app.model.Person;
 import com.splitfee.app.utils.schedulers.BaseSchedulerProvider;
 
 import java.util.ArrayList;
@@ -14,6 +13,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 
@@ -28,6 +28,7 @@ public class AddTripPresenter extends BasePresenter<AddTripView> {
     private final DisplayPerson displayPerson;
     private List<PersonViewParam> persons = new ArrayList<>();
     private String selectedCover;
+    private TripViewParam trip;
 
     @Inject
     public AddTripPresenter(DisplayTrip displayTrip, DisplayPerson displayPerson, BaseSchedulerProvider schedulerProvider) {
@@ -36,26 +37,40 @@ public class AddTripPresenter extends BasePresenter<AddTripView> {
         this.displayPerson = displayPerson;
     }
 
+    public void setTrip(TripViewParam tripViewParam) {
+        this.trip = tripViewParam;
+    }
+
     @Override
     public void onCreateView(AddTripView view) {
         super.onCreateView(view);
 
-
         loadPersons();
+
+        if (trip != null) {
+            loadTrip();
+        }
     }
 
     public void tapBtnSave(String title, List<PersonViewParam> selectedChipList) {
 
-        if(title.length() == 0) {
+        if (title.length() == 0) {
             getView().showTitleRequired();
             return;
-        } else if(selectedChipList.size() < 2) {
+        } else if (selectedChipList.size() < 2) {
             getView().showParticipantMinimumRequired();
             return;
         }
 
-        displayTrip.saveTrip(title, selectedChipList, selectedCover)
-                .subscribeOn(scheduler.computation())
+        Single<TripViewParam> single = null;
+        if (trip != null) {
+
+            single = displayTrip.updateTrip(trip.getId(), trip.getCreatedAt(), title, selectedChipList, selectedCover);
+        } else {
+            single = displayTrip.saveTrip(title, selectedChipList, selectedCover);
+        }
+
+        single.subscribeOn(scheduler.computation())
                 .observeOn(scheduler.ui())
                 .subscribe(new SingleObserver<TripViewParam>() {
                     @Override
@@ -66,7 +81,7 @@ public class AddTripPresenter extends BasePresenter<AddTripView> {
                     @Override
                     public void onSuccess(TripViewParam value) {
 
-                        if(!isViewAttached())
+                        if (!isViewAttached())
                             return;
 
                         getView().navigateBackToMainActivity(value);
@@ -94,6 +109,11 @@ public class AddTripPresenter extends BasePresenter<AddTripView> {
 
     }
 
+    private void loadTrip() {
+        getView().setTitle(trip.getName());
+        getView().setCover(trip.getCover());
+    }
+
     private void loadPersons() {
 
         displayPerson.getPersons()
@@ -107,12 +127,15 @@ public class AddTripPresenter extends BasePresenter<AddTripView> {
 
                     @Override
                     public void onSuccess(List<PersonViewParam> value) {
-                        if(!isViewAttached())
+                        if (!isViewAttached())
                             return;
 
 
                         persons.addAll(value);
                         getView().showPersonChips(persons);
+
+                        if (trip != null)
+                            getView().setPersons(trip.getPersons());
 
                     }
 

@@ -22,4 +22,10 @@ interface AddTripView extends BaseView {
     void showParticipantMinimumRequired();
 
     void showTitleRequired();
+
+    void setTitle(String name);
+
+    void setCover(String cover);
+
+    void setPersons(List<PersonViewParam> persons);
 }
