@@ -96,9 +96,6 @@ public class SummaryActivity extends BaseActivity implements SummaryView {
             case R.id.share:
                 presenter.tapShareMenu();
                 break;
-            case R.id.send_feedback:
-                getNavigator().navigateToSendEmail(this);
-                break;
         }
         return super.onOptionsItemSelected(item);
     }

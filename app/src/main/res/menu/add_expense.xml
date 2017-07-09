@@ -8,8 +8,4 @@
         android:title="Add Expense"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/send_feedback"
-        android:title="Send Feedback"
-        app:showAsAction="never" />
 </menu>
