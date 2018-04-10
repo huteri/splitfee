@@ -15,7 +15,6 @@
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
@@ -45,7 +44,7 @@
 
                 <include
                     android:id="@+id/toolbar_header_view"
-                    layout="@layout/view_city_page_header"
+                    layout="@layout/view_trip_detail_header_light"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/header_view_end_margin_right"
@@ -58,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="@dimen/header_view_start_margin_bottom"
                 android:layout_marginRight="16dp"
                 android:background="@drawable/btn_summary"
                 android:clickable="true"
