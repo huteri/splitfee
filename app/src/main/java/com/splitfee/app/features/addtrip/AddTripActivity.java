@@ -124,7 +124,7 @@ public class AddTripActivity extends BaseActivity implements AddTripView {
 
     @Override
     public void showParticipantMinimumRequired() {
-        Toast.makeText(this, "Participant at least 2 people", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Participants at least 2 people", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -146,9 +146,8 @@ public class AddTripActivity extends BaseActivity implements AddTripView {
 
     @Override
     public void setPersons(List<PersonViewParam> persons) {
-        for (PersonViewParam person : persons) {
-            chipsInput.addChip(person);
-        }
+
+        chipsInput.setFilterableList(persons);
     }
 
     @OnClick(R.id.btn_save)
