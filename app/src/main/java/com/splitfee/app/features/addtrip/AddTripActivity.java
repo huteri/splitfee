@@ -146,8 +146,9 @@ public class AddTripActivity extends BaseActivity implements AddTripView {
 
     @Override
     public void setPersons(List<PersonViewParam> persons) {
-
-        chipsInput.setFilterableList(persons);
+        for (PersonViewParam person : persons) {
+            chipsInput.addChip(person);
+        }
     }
 
     @OnClick(R.id.btn_save)
