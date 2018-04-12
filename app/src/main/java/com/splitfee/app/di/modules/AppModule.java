@@ -3,6 +3,8 @@ package com.splitfee.app.di.modules;
 import android.app.Application;
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.splitfee.app.utils.schedulers.BaseSchedulerProvider;
 import com.splitfee.app.utils.schedulers.SchedulerProvider;
 
@@ -39,5 +41,13 @@ public class AppModule {
     @Singleton
     @Provides
     Context provideContext(Application application) { return application.getApplicationContext(); }
+
+    @Provides
+    @Singleton
+    Gson provideGson() {
+        return new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .create();
+    }
 
 }

@@ -2,6 +2,7 @@ package com.splitfee.app.di.modules;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
 import com.splitfee.app.data.dao.AppConfigDao;
 import com.splitfee.app.data.dao.AppConfigDaoImpl;
 import com.splitfee.app.data.dao.ExpenseDao;
@@ -25,8 +26,8 @@ public class DaoModule {
 
     @Singleton
     @Provides
-    TripDao provideTripDao() {
-        return new TripDaoImpl();
+    TripDao provideTripDao(Gson gson) {
+        return new TripDaoImpl(gson);
     }
 
     @Singleton

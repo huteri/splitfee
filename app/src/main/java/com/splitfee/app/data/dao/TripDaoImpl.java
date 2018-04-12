@@ -1,5 +1,6 @@
 package com.splitfee.app.data.dao;
 
+import com.google.gson.Gson;
 import com.splitfee.app.model.Trip;
 
 import java.util.List;
@@ -16,14 +17,17 @@ import io.realm.Sort;
 public class TripDaoImpl implements TripDao {
 
 
-    public TripDaoImpl() {
+    private final Gson gson;
+
+    public TripDaoImpl(Gson gson) {
+        this.gson = gson;
     }
 
     @Override
     public Single<List<Trip>> getTrips() {
         Realm realm = Realm.getDefaultInstance();
 
-        RealmResults<Trip> all = realm.where(Trip.class).findAllSorted("createdAt", Sort.DESCENDING);
+        RealmResults<Trip> all = realm.where(Trip.class).findAll().sort("createdAt", Sort.DESCENDING);
         List<Trip> trips = realm.copyFromRealm(all);
 
         realm.close();
@@ -35,7 +39,9 @@ public class TripDaoImpl implements TripDao {
     public Single<Trip> saveTrip(final Trip trip) {
         Realm realm = Realm.getDefaultInstance();
         realm.executeTransaction(realm1 -> {
-            realm1.insertOrUpdate(trip);
+
+            String json = gson.toJson(trip);
+            realm1.createOrUpdateObjectFromJson(Trip.class, json);
         });
 
         realm.close();
